@@ -39,7 +39,7 @@ Mostly refered Arch Wiki.
 
 - Use `lsblk` or `fdisk l` to view your disk partitions
 - To modify your partition disk do `fdisk /dev/disk_to_partition`
-- If you are dual booting you don't need to create EFI Partition
+- If you are dual booting you don't need to create EFI Partition considering you already have a EFI.
 - Create a ext4 format drive for root folder
 - Create a swap space (optional but preferred)
 ```
@@ -60,6 +60,7 @@ Mount point 	Partition 	Partition type 	Suggested size
 - Mount the partitions into mnt
 ```bash 
 # mount /dev/root_partition /mnt
+# mount /dev/efi_partition /mnt/boot
 # swapon /dev/swap_partition
 ```
 
@@ -141,6 +142,22 @@ shimthearch-desktop
 ## Same thing without a password
 %wheel ALL=(ALL) NOPASSWD: ALL
 ``` 
+
+## GRUB Setup 
+- Use OS-Prober to find your second OS. (if you are dual booting)
+```bash
+# os-prober
+/dev/nvme0n1p1@/EFI/Microsoft/Boot/bootmgfw.efi:Windows Boot Manager:Windows:efi
+```
+- Install Grub in EFI partition.
+```bash
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch-linux
+```
+- Make config file for grub to remember
+```bash
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
 ## OS is ready now, unmount and restart.
 
 - Exit out of chroot by typing exit
