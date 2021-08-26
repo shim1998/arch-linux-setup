@@ -151,11 +151,11 @@ shimthearch-desktop
 ```
 - Install Grub in EFI partition.
 ```bash
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch-linux
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch-linux
 ```
 - Make config file for grub to remember
 ```bash
-grub-mkconfig -o /boot/grub/grub.cfg
+# grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ## OS is ready now, unmount and restart.
